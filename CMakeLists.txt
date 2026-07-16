@@ -13,23 +13,32 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# ---- 查找 Qt 模块（关键改动在这里！） ----
-# 增加了 Multimedia 和 MultimediaWidgets
+# ---- 查找 Qt 模块 ----
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets Multimedia MultimediaWidgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets Multimedia MultimediaWidgets REQUIRED)
 
-# ---- 可执行文件 ----
+# ---- 可执行文件（所有 .cpp 源文件都列在这里） ----
 add_executable(mediaplayer
     mediaplayer/src/main.cpp
-    mediaplayer/src/mainwindow.cpp
-    mediaplayer/src/mainwindow.h
-    # 如果你有 .qrc 资源文件，也列在这里
-    # mediaplayer/resources.qrc
+    mediaplayer/src/MainWindow.cpp
+    mediaplayer/src/Track.cpp
+    mediaplayer/src/Playlist.cpp
+    mediaplayer/src/LibraryManager.cpp
+    mediaplayer/src/LrcParser.cpp
+    mediaplayer/src/LyricsWidget.cpp
+    mediaplayer/src/PlayerController.cpp
+    mediaplayer/src/Transcoder.cpp
+    # 如果你还有别的 .cpp 文件，继续加在这里
 )
 
-# ---- 链接 Qt 库（关键改动在这里！） ----
+# ---- 【关键】告诉编译器：头文件在 mediaplayer/include/ 里 ----
+target_include_directories(mediaplayer PRIVATE
+    mediaplayer/include
+)
+
+# ---- 链接 Qt 库 ----
 target_link_libraries(mediaplayer PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Multimedia
-    Qt${QT_VERSION_MAJOR}::MultimediaWidgets   # 如果只做音频，这行可以删掉
+    Qt${QT_VERSION_MAJOR}::MultimediaWidgets
 )
