@@ -29,6 +29,15 @@ add_executable(mediaplayer
     mediaplayer/src/PlayerController.cpp
     mediaplayer/src/Transcoder.cpp
     # 如果你还有别的 .cpp 文件，继续加在这里
+    # 将头文件也列在这里（相对路径）
+    mediaplayer/include/MainWindow.h
+    mediaplayer/include/Track.h
+    mediaplayer/include/Playlist.h
+    mediaplayer/include/LibraryManager.h
+    mediaplayer/include/LrcParser.h
+    mediaplayer/include/LyricsWidget.h
+    mediaplayer/include/PlayerController.h
+    mediaplayer/include/Transcoder.h
 )
 
 # ---- 【关键】告诉编译器：头文件在 mediaplayer/include/ 里 ----
